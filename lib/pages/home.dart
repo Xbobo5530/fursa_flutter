@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './user_account.dart';
 import 'package:url_launcher/url_launcher.dart';
 import './create_post.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,9 +19,9 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       home: DefaultTabController(
         length: 2,
-        child: new Scaffold(
-          appBar: new AppBar(
-            title: new Text('Fursa'),
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Fursa'),
             bottom: TabBar(
               tabs: [
                 Tab(icon: Icon(Icons.timelapse)),
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          bottomNavigationBar: new BottomNavigationBar(
+          bottomNavigationBar: BottomNavigationBar(
             items: <BottomNavigationBarItem>[
               new BottomNavigationBarItem(
                   icon: new Icon(Icons.home), title: new Text('Home')),
@@ -46,11 +47,50 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.red,
               child: new Icon(Icons.add),
               onPressed: _createPost),
-          body: new Center(
-            child: new Text('sample text'),
+          body: TabBarView(
+            children: [
+              _buildPostsStreamBuilder(),
+              _buildPeopleStreamBuilder(),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  StreamBuilder<QuerySnapshot> _buildPeopleStreamBuilder() {
+    return StreamBuilder(
+      stream: Firestore.instance.collection('Users').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return const Text('Loading...');
+        return new ListView.builder(
+          itemCount: snapshot.data.documents.length,
+          padding: const EdgeInsets.only(top: 10.0),
+          itemExtent: 25.0,
+          itemBuilder: (context, index) {
+            DocumentSnapshot ds = snapshot.data.documents[index];
+            return new Text("${ds['name']}");
+          },
+        );
+      },
+    );
+  }
+
+  StreamBuilder<QuerySnapshot> _buildPostsStreamBuilder() {
+    return StreamBuilder(
+      stream: Firestore.instance.collection('Posts').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return const Text('Loading...');
+        return new ListView.builder(
+          itemCount: snapshot.data.documents.length,
+          padding: const EdgeInsets.only(top: 10.0),
+          itemExtent: 25.0,
+          itemBuilder: (context, index) {
+            DocumentSnapshot ds = snapshot.data.documents[index];
+            return new Text("${ds['desc']}");
+          },
+        );
+      },
     );
   }
 
