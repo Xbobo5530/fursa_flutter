@@ -1,0 +1,161 @@
+{
+  "project_info": {
+    "project_number": "858152200953",
+    "firebase_url": "https://fursa-c181d.firebaseio.com",
+    "project_id": "fursa-c181d",
+    "storage_bucket": "fursa-c181d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858152200953:android:1aedbbd1d53f220e",
+        "android_client_info": {
+          "package_name": "com.nyayozangu.labs.fursa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858152200953-ehpg867ddosbciep6jt1l44nc12iv27m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nyayozangu.labs.fursa",
+            "certificate_hash": "2f4d9e7d126975ab780ad16f3f73fd5e8d946af8"
+          }
+        },
+        {
+          "client_id": "858152200953-70t143eua04cp07frq6g26af73ojovs1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nyayozangu.labs.fursa",
+            "certificate_hash": "1a2614eedacd1b888cba596acbc72f324e7aaec1"
+          }
+        },
+        {
+          "client_id": "858152200953-nepivu0t1tqscd2p03ogt3s63hlt6und.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nyayozangu.labs.fursa",
+            "certificate_hash": "8a976c50c9afc80ede56f85fc40dba1ae57ca674"
+          }
+        },
+        {
+          "client_id": "858152200953-t71narkdnbuuk7uipf9i489uvb9dn23i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAsytz8_cZlSjNymVTL0nRtRRTJz_DZQ8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858152200953-t71narkdnbuuk7uipf9i489uvb9dn23i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "858152200953-d29qlg5ghf56dgq1stgvbv1dlo6jnp6j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nyayozangu.labs.fursa"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-6180360542591636~2536386439"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858152200953:android:92b43964a7ace8c8",
+        "android_client_info": {
+          "package_name": "com.nyayozangu.labs.fursa.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858152200953-82tpj95cngh61olljgc4fu5jg7lphv29.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nyayozangu.labs.fursa.admin",
+            "certificate_hash": "2f4d9e7d126975ab780ad16f3f73fd5e8d946af8"
+          }
+        },
+        {
+          "client_id": "858152200953-t71narkdnbuuk7uipf9i489uvb9dn23i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAsytz8_cZlSjNymVTL0nRtRRTJz_DZQ8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858152200953-t71narkdnbuuk7uipf9i489uvb9dn23i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "858152200953-d29qlg5ghf56dgq1stgvbv1dlo6jnp6j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nyayozangu.labs.fursa"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858152200953:android:2356614a1aae08b0",
+        "android_client_info": {
+          "package_name": "com.nyayozangu.labs.fursa.fursaflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858152200953-t71narkdnbuuk7uipf9i489uvb9dn23i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAsytz8_cZlSjNymVTL0nRtRRTJz_DZQ8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
