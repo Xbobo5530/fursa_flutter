@@ -1,8 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fursa_flutter/models/user.dart';
+import 'package:fursa_flutter/pages/login.dart';
+import 'package:fursa_flutter/pages/people_tab.dart';
+import 'package:fursa_flutter/pages/posts_tab.dart';
 import './user_account.dart';
 import 'package:url_launcher/url_launcher.dart';
 import './create_post.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fursa_flutter/common.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -49,8 +56,8 @@ class _HomePageState extends State<HomePage> {
               onPressed: _createPost),
           body: TabBarView(
             children: [
-              _buildPostsStreamBuilder(),
-              _buildPeopleStreamBuilder(),
+              new PostsTab(),
+              new PeopleTab(),
             ],
           ),
         ),
@@ -58,48 +65,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  StreamBuilder<QuerySnapshot> _buildPeopleStreamBuilder() {
-    return StreamBuilder(
-      stream: Firestore.instance.collection('Users').snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return const Text('Loading...');
-        return new ListView.builder(
-          itemCount: snapshot.data.documents.length,
-          padding: const EdgeInsets.only(top: 10.0),
-          itemExtent: 25.0,
-          itemBuilder: (context, index) {
-            DocumentSnapshot ds = snapshot.data.documents[index];
-            return new Text("${ds['name']}");
-          },
-        );
-      },
-    );
-  }
 
-  StreamBuilder<QuerySnapshot> _buildPostsStreamBuilder() {
-    return StreamBuilder(
-      stream: Firestore.instance.collection('Posts').snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return const Text('Loading...');
-        return new ListView.builder(
-          itemCount: snapshot.data.documents.length,
-          padding: const EdgeInsets.only(top: 10.0),
-          itemExtent: 25.0,
-          itemBuilder: (context, index) {
-            DocumentSnapshot ds = snapshot.data.documents[index];
-            return new Text("${ds['desc']}");
-          },
-        );
-      },
-    );
-  }
 
   ListView buildNavListView(BuildContext context) {
     return new ListView(
       children: <Widget>[
         new UserAccountsDrawerHeader(
             accountName: Text('Username'),
-            accountEmail: Text('user@email.com'),
+            accountEmail: Text('user.dart@email.com'), //todo use this to show the balance
             decoration: new BoxDecoration(color: Colors.redAccent
                 // image: new DecorationImage(
                 //   fit: BoxFit.fill,
@@ -139,7 +112,7 @@ class _HomePageState extends State<HomePage> {
         new ListTile(
           title: new Text('Logout'),
           leading: new Icon(Icons.exit_to_app),
-          onTap: () {},
+          onTap: () { Common().logout(); },
         ),
         new Divider(),
         new ListTile(
@@ -192,14 +165,20 @@ class _HomePageState extends State<HomePage> {
 
   createPost() {}
 
-  openMyAccount() {
+  openUserAccount() {
     Navigator.of(context).push(new MaterialPageRoute(
         builder: (BuildContext context) => new UserPage('User page')));
   }
 
   void _createPost() {
-    Navigator.of(context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => new CreatePost()));
+
+    if (Common().isLoggedIn()) {
+      Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) => new CreatePost()));
+    }else{
+      Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) => new Login()));
+    }
   }
 
   void _launchUrl(String url) async {
