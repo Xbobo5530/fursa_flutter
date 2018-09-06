@@ -4,12 +4,13 @@ import 'package:fursa_flutter/models/user.dart';
 import 'package:fursa_flutter/pages/login.dart';
 import 'package:fursa_flutter/pages/people_tab.dart';
 import 'package:fursa_flutter/pages/posts_tab.dart';
-import './user_account.dart';
+import 'package:fursa_flutter/pages/user_posts.dart';
+import 'package:fursa_flutter/views/navigation_drawer.dart';
+import './user_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import './create_post.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fursa_flutter/common.dart';
-
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,6 +24,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var currentUser;
+    if (Common().isLoggedIn()) {
+      var currentUserId = Common().getCurrentUserId();
+      var documentSnapshot =
+          Firestore.instance.collection('Users').document(currentUserId).get();
+      currentUser = User.fromSnapshot(documentSnapshot);
+      currentUser.uid = currentUserId;
+    }
+
     return MaterialApp(
       home: DefaultTabController(
         length: 2,
@@ -48,7 +58,8 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           drawer: new Drawer(
-            child: buildNavListView(context),
+//            child: _buildNavListView(context, currentUser),
+            child: MainNavigationDrawer(currentUser),
           ),
           floatingActionButton: new FloatingActionButton(
               backgroundColor: Colors.red,
@@ -65,153 +76,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-
-  ListView buildNavListView(BuildContext context) {
-    return new ListView(
-      children: <Widget>[
-        new UserAccountsDrawerHeader(
-            accountName: Text('Username'),
-            accountEmail: Text('user.dart@email.com'), //todo use this to show the balance
-            decoration: new BoxDecoration(color: Colors.redAccent
-                // image: new DecorationImage(
-                //   fit: BoxFit.fill,
-                //   image: NetworkImage(url)
-                // )
-                )),
-        new ListTile(
-          title: new Text('My profile'),
-          leading: new Icon(Icons.account_circle),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => UserPage('My profile')),
-            );
-          },
-        ),
-        new ListTile(
-          title: new Text('My posts'),
-          leading: new Icon(Icons.library_books),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => UserPage('My posts')),
-            );
-          },
-        ),
-        new ListTile(
-          title: new Text('My saved posts'),
-          leading: new Icon(Icons.bookmark),
-          onTap: () {},
-        ),
-        new ListTile(
-          title: new Text('My subscriptions'),
-          leading: new Icon(Icons.cached),
-          onTap: () {},
-        ),
-        new ListTile(
-          title: new Text('Logout'),
-          leading: new Icon(Icons.exit_to_app),
-          onTap: () { Common().logout(); },
-        ),
-        new Divider(),
-        new ListTile(
-          title: new Text('Share'),
-          leading: new Icon(Icons.share),
-          onTap: () {},
-        ),
-        new ListTile(
-          title: new Text('Contact us'),
-          leading: new Icon(Icons.contacts),
-          onTap: () {
-            const email = 'mailto:family@nyayozangu.com?';
-            _launchUrl(email);
-          },
-        ),
-        new ListTile(
-          title: new Text('View terms'),
-          leading: new Icon(Icons.feedback),
-          onTap: () {
-            const url = 'http://fursa.nyayozangu.com/privacy_policy/';
-            _launchUrl(url);
-          },
-        ),
-        new ListTile(
-          title: new Text('About'),
-          leading: new Icon(Icons.info),
-          onTap: _showAppInfo,
-        ),
-      ],
-    );
-  }
-
-  ListTile buildNavListTile(
-      BuildContext context, String title, IconData icon, onTap()) {
-    return new ListTile(
-      title: new Text(title),
-      leading: Icon(icon),
-      onTap: () {
-        Navigator.of(context).pop();
-        onTap();
-
-        // Navigator.of(context).push(
-        //   new MaterialPageRoute(
-        //     builder: (BuildContext context) => new UserPage('User page')
-        //   )
-        // );
-      },
-    );
-  }
-
-  createPost() {}
-
-  openUserAccount() {
-    Navigator.of(context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => new UserPage('User page')));
-  }
-
   void _createPost() {
-
     if (Common().isLoggedIn()) {
       Navigator.of(context).push(new MaterialPageRoute(
           builder: (BuildContext context) => new CreatePost()));
-    }else{
+    } else {
       Navigator.of(context).push(new MaterialPageRoute(
           builder: (BuildContext context) => new Login()));
     }
-  }
-
-  void _launchUrl(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-      print('launching $url');
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  void _showAppInfo() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: new Text('Fursa v0.0.1'),
-            content: new SingleChildScrollView(
-              child: new ListBody(
-                children: <Widget>[
-                  new Text('Fursa, now in Flutter'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
   }
 }

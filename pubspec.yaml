@@ -5,9 +5,9 @@ dependencies:
   flutter:
     sdk: flutter
   cloud_firestore: ^0.7.3
-  firebase_auth: ^0.5.19
-  firebase_database: 0.0.12
-  google_sign_in: ^2.0.0
+  firebase_auth: ^0.5.20
+  firebase_database: ^1.0.4
+  google_sign_in: ^3.0.5
 #  flutter_firebase_ui: ^0.0.8
   url_launcher: ^3.0.3
   transparent_image: ^0.1.0

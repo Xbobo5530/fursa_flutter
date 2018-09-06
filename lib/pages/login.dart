@@ -4,7 +4,6 @@ import 'package:fursa_flutter/common.dart';
 import 'package:fursa_flutter/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-//import 'package:flutter_firebase_ui/flutter_firebase_ui.dart';
 
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
 
@@ -14,12 +13,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   var _message;
 
   @override
   Widget build(BuildContext context) {
-        if (Common().isLoggedIn())
+    if (Common().isLoggedIn())
       Navigator.of(context).push(new MaterialPageRoute(
           builder: (BuildContext context) => new HomePage()));
     return new Scaffold(
@@ -28,28 +26,29 @@ class _LoginState extends State<Login> {
       ),
       body: new Center(
           child: new Column(
-            children: <Widget>[
-              MaterialButton(
-                  onPressed: (){
-                    setState(() {
-                      _message = _signInWithGoogle();
-                    });},
-                  child: new Text('Login with Google'))
-            ],
-          )
-      ),
+        children: <Widget>[
+          MaterialButton(
+              onPressed: () {
+                setState(() {
+//                      _message = _signInWithGoogle();
+                });
+              },
+              child: new Text('Login with Google')),
+          new Text(_message)
+        ],
+      )),
     );
   }
 
   Future<String> _signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
-    await googleUser.authentication;
+        await googleUser.authentication;
 //    final FirebaseUser user = await _auth.signInWithGoogle(
     final FirebaseUser user = await Common().getAuth().signInWithGoogle(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
     assert(user.email != null);
     assert(user.displayName != null);
     assert(!user.isAnonymous);

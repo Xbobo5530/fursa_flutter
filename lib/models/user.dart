@@ -1,24 +1,19 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
-  String name;
-  String bio;
-  String imageUrl;
-  String thumbUrl;
-  User(this.name, this.imageUrl, this.thumbUrl, this.bio);
+  String name, bio, imageUrl, thumbUrl, uid;
+  int credit, level;
+  DateTime lastCreditUpdatedAt;
+  User(this.name, this.imageUrl, this.thumbUrl, this.bio, this.uid, this.credit, this.level, this.lastCreditUpdatedAt);
 
-  User.fromJson(var value){
+  User.fromSnapshot(var value){
     this.name=value['name'];
     this.bio=value['bio'];
     this.imageUrl=value['image'];
     this.thumbUrl=value['thumb'];
-
+    this.credit=value['credit'];
+    this.level=value['level'];
+    this.lastCreditUpdatedAt=value['last_daily_credit_update_at'];
   }
-
-  User.fromSnapshot(DocumentSnapshot snapshot)
-      : name = snapshot.data['name'],
-        bio = snapshot.data['bio'],
-        imageUrl = snapshot.data['image'],
-        thumbUrl = snapshot.data['thumb'];
 }
+

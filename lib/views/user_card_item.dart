@@ -5,9 +5,10 @@
 //  final User user;
 //  UserCardItem(this.user);
 //
-//  var imageUrl = 'mock url';
+//  final imageUrl = 'url';
 //
 //  final leftSection = new Container(
+//
 //    child: new CircleAvatar(
 //      backgroundImage: new NetworkImage(imageUrl),
 //      backgroundColor: Colors.lightBlue,

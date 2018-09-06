@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fursa_flutter/pages/home.dart';
 
-class ViewPost extends StatelessWidget{
-
+class ViewPost extends StatelessWidget {
   final String postId;
   ViewPost(this.postId);
 
@@ -14,12 +13,12 @@ class ViewPost extends StatelessWidget{
     } else {
       return new Scaffold(
         appBar: new AppBar(
-          title: new Text('View Post'),),
+          title: new Text('View Post'),
+        ),
         body: new Center(
-          child: new Text('View Post'),
+          child: new Text(postId),
         ),
       );
     }
   }
-
 }

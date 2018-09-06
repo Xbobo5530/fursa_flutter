@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fursa_flutter/models/user.dart';
 
 class Common {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -16,6 +17,21 @@ class Common {
       return true;
     }
   }
+
+  String getCurrentUserId(){
+    if (this.isLoggedIn()){
+      //todo get the user id of the current user
+//      var currentUser = this._auth.currentUser();
+//      var userId;
+//      currentUser.whenComplete()
+    }else{
+      return 'testUserId';
+    }
+  }
+
+//  User getUser(){
+//    return _auth.currentUser(;
+//  }
 
   void logout() {
     this._auth.signOut();

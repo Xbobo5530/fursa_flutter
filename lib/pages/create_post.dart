@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CreatePost extends StatelessWidget{
-
+class CreatePost extends StatelessWidget {
   final String pageName = 'Create post';
   CreatePost();
 
@@ -14,15 +13,11 @@ class CreatePost extends StatelessWidget{
           FlatButton(
             child: new Text('Submit'),
             textColor: Colors.white,
-            onPressed: (){},
+            onPressed: () {},
           )
         ],
       ),
-      body: new Center(
-          child: new Column(
-          )
-      ),
+      body: new Center(child: new Column()),
     );
   }
-
 }

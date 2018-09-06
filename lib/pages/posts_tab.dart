@@ -93,16 +93,16 @@ class PostsTab extends StatelessWidget {
               ),
             ],
           ),
-
         ),
-      ), onPressed: () {_openPost(post.postId, context);},
+      ),
+      onPressed: () {
+        _openPost(post.postId, context);
+      },
     );
   }
-
-
 }
 
-  void _openPost(postId, context) {
-    Navigator.of(context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => new ViewPost(postId)));
-  }
+void _openPost(postId, context) {
+  Navigator.of(context).push(new MaterialPageRoute(
+      builder: (BuildContext context) => new ViewPost(postId)));
+}
