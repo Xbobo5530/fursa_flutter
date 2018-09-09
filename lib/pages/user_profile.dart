@@ -13,10 +13,10 @@ class UserProfile extends StatelessWidget {
     var username = user.name;
     var bio = user.bio;
     var currentUserId = Common().getCurrentUserId();
+
     var actionButton;
     var userInfo;
-
-    if (currentUserId == user.uid) {
+    if (currentUserId != null && currentUserId == user.uid) {
       title = 'My profile';
       if (bio != null) {
         userInfo = new ListTile(
