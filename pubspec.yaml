@@ -4,13 +4,9 @@ description: A Fursa Flutter application.
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.7.3
-  firebase_auth: ^0.5.20
-  firebase_database: ^1.0.4
-  google_sign_in: ^3.0.5
-#  flutter_firebase_ui: ^0.0.8
-  url_launcher: ^3.0.3
-  transparent_image: ^0.1.0
+
+  cloud_firestore: ^0.8.0
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -1,16 +1,48 @@
-
 class Post {
-  String postId, desc, userId, imageUrl, thumbUrl, title, price, imageText, imageLabel;
+  String postId,
+      desc,
+      userId,
+      username,
+      userImageUrl,
+      imageUrl,
+      thumbUrl,
+      title,
+      price,
+      imageText,
+      imageLabel;
   List<dynamic> location, contactDetails, categories, tags;
   int likes, comments, views, activity, feedViews, postType;
   DateTime timestamp, eventDate, eventEndDate;
 
-  Post(this.postId, this.desc, this.userId, this.imageUrl, this.thumbUrl, this.title,
-      this.price, this.imageText, this.imageLabel, this.location, this.contactDetails,
-      this.categories, this.tags, this.likes, this.comments, this.views, this.activity,
-      this.feedViews, this.postType, this.timestamp, this.eventDate, this.eventEndDate);
+  Post(
+      this.postId,
+      this.desc,
+      this.userId,
+      this.username,
+      this.userImageUrl,
+      this.imageUrl,
+      this.thumbUrl,
+      this.title,
+      this.price,
+      this.imageText,
+      this.imageLabel,
+      this.location,
+      this.contactDetails,
+      this.categories,
+      this.tags,
+      this.likes,
+      this.comments,
+      this.views,
+      this.activity,
+      this.feedViews,
+      this.postType,
+      this.timestamp,
+      this.eventDate,
+      this.eventEndDate);
 
-  Post.fromSnapshot(var value){
+  Post.simple(this.desc, this.imageUrl, this.userId, this.location);
+
+  Post.fromSnapshot(var value) {
     this.desc = value['desc'];
     this.userId = value['user_id'];
     this.imageUrl = value['image_url'];

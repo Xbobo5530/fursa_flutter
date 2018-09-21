@@ -1,16 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fursa_flutter/models/user.dart';
-import 'package:fursa_flutter/pages/login.dart';
 import 'package:fursa_flutter/pages/people_tab.dart';
 import 'package:fursa_flutter/pages/posts_tab.dart';
-import 'package:fursa_flutter/pages/user_posts.dart';
-import 'package:fursa_flutter/views/navigation_drawer.dart';
-import './user_profile.dart';
-import 'package:url_launcher/url_launcher.dart';
-import './create_post.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fursa_flutter/common.dart';
+import 'package:fursa_flutter/values/strings.dart';
+import 'package:fursa_flutter/views/bottom_nav_bar.dart';
+import 'package:fursa_flutter/views/main_drawer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,43 +17,21 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var currentUser;
-    if (Common().isLoggedIn()) {
-      var currentUserId = Common().getCurrentUserId();
-      var documentSnapshot =
-          Firestore.instance.collection('Users').document(currentUserId).get();
-      currentUser = User.fromSnapshot(documentSnapshot);
-      currentUser.uid = currentUserId;
-    }
-
     return MaterialApp(
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Fursa'),
+            title: const Text(APP_NAME),
             bottom: TabBar(
               tabs: [
-                Tab(icon: Icon(Icons.timelapse)),
-                Tab(icon: Icon(Icons.group)),
+                Tab(icon: Icon(Icons.timelapse), text: recentText),
+                Tab(icon: Icon(Icons.group), text: peopleText),
               ],
             ),
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              new BottomNavigationBarItem(
-                  icon: new Icon(Icons.home), title: new Text('Home')),
-              new BottomNavigationBarItem(
-                  icon: new Icon(Icons.apps), title: new Text('Categories')),
-              new BottomNavigationBarItem(
-                  icon: new Icon(Icons.notifications),
-                  title: new Text('Notifications')),
-            ],
-          ),
-          drawer: new Drawer(
-//            child: _buildNavListView(context, currentUser),
-            child: MainNavigationDrawer(currentUser),
-          ),
+          bottomNavigationBar: new BottomNavView(),
+          drawer: new MainDrawerView(),
           floatingActionButton: new FloatingActionButton(
               backgroundColor: Colors.red,
               child: new Icon(Icons.add),
@@ -76,13 +47,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _createPost() {
-    if (Common().isLoggedIn()) {
-      Navigator.of(context).push(new MaterialPageRoute(
-          builder: (BuildContext context) => new CreatePost()));
-    } else {
-      Navigator.of(context).push(new MaterialPageRoute(
-          builder: (BuildContext context) => new Login()));
-    }
-  }
+  void _createPost() {}
 }
