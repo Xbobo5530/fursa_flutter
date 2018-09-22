@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fursa_flutter/models/post.dart';
+import 'package:fursa_flutter/pages/view_post.dart';
 import 'package:fursa_flutter/values/strings.dart';
 import 'package:fursa_flutter/views/post_top_section.dart';
 
@@ -29,7 +30,8 @@ class _PostListItemViewState extends State<PostListItemView> {
 
     var _topSection = new PostTopSectionView(post);
 
-    var _imageSection = Image.network(post.imageUrl);
+    var _imageSection =
+        post.imageUrl != null ? Image.network(post.imageUrl) : new Container();
 
     var _actionsSection = Padding(
       padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
@@ -45,17 +47,21 @@ class _PostListItemViewState extends State<PostListItemView> {
     );
 
     return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-            child: Column(
-          children: <Widget>[
-            _topSection,
-            _imageSection,
-            _descSection,
-            _actionsSection,
-          ],
-        )),
+      child: InkWell(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              _topSection,
+              _imageSection,
+              _descSection,
+              _actionsSection,
+            ],
+          )),
+        ),
+        onTap: () => _openPost(context),
       ),
     );
   }
@@ -76,5 +82,15 @@ class _PostListItemViewState extends State<PostListItemView> {
         onTap: onTap,
       ),
     );
+  }
+
+  _openPost(BuildContext context) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) {
+              return new ViewPostPage(post);
+            },
+            fullscreenDialog: true));
   }
 }

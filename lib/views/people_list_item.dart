@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fursa_flutter/models/user.dart';
+import 'package:fursa_flutter/pages/user_profile.dart';
 import 'package:fursa_flutter/values/strings.dart';
 
 class PeopleListItemView extends StatefulWidget {
@@ -18,13 +19,19 @@ class _PeopleListItemViewState extends State<PeopleListItemView> {
   Widget build(BuildContext context) {
     var _imageSection = Padding(
       padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-      child: new CircleAvatar(
-        backgroundImage: NetworkImage(user.imageUrl),
-      ),
+      child: user.imageUrl != null
+          ? new CircleAvatar(
+              backgroundImage: NetworkImage(user.imageUrl),
+            )
+          : Icon(
+              Icons.account_circle,
+              size: 45.0,
+              color: Colors.grey,
+            ),
     );
     var _infoSection = new ListTile(
       title: Text(user.name),
-      subtitle: Text(user.bio),
+      subtitle: user.bio != null ? Text(user.bio) : new Container(),
     );
 
     var _followSection = FlatButton(
@@ -34,17 +41,30 @@ class _PeopleListItemViewState extends State<PeopleListItemView> {
           style: new TextStyle(color: Colors.blue, fontStyle: FontStyle.italic),
         ));
     return Card(
-      child: Row(
-        children: <Widget>[
-          _imageSection,
-          Expanded(child: _infoSection),
-          _followSection
-        ],
+      child: InkWell(
+        child: Row(
+          children: <Widget>[
+            _imageSection,
+            Expanded(child: _infoSection),
+            _followSection
+          ],
+        ),
+        onTap: () => _openUserProfile(context),
       ),
     );
   }
 
   void _followUser() {
     //todo handle follow user
+  }
+
+  _openUserProfile(BuildContext context) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) {
+              return new UserProfilePage(user);
+            },
+            fullscreenDialog: true));
   }
 }

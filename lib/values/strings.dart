@@ -1,12 +1,22 @@
 const APP_NAME = 'Fursa';
+const POSTS_COLLECTION = 'Posts';
+const USERS_COLLECTION = 'Users';
+const TIMESTAMP_VALUE = 'timestamp';
 const recentText = 'Recent';
 const peopleText = 'People';
 const likeText = 'Like';
 const commentText = 'Comment';
 const saveText = 'Save';
 const shareText = 'Share';
+const editProfileText = 'Edit profile';
+const confirmEditProfileText = 'Would you like to edit your profile?';
+const yesText = 'Yes';
+const cancelText = 'Cancel';
 const promoteText = 'Promote';
 const followText = 'Follow';
+const followersText = 'Followers';
+const followingText = 'Following';
+const postsText = 'Posts';
 
 const postDesc1 = 'The tenor ukulele is larger than the concert ukulele.'
     ' It is defined by having a very rich tone.'
