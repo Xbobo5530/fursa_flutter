@@ -7,7 +7,7 @@ import 'package:fursa_flutter/views/post_list_item.dart';
 
 const tag = 'PostsTab: ';
 
-class PostsTab extends StatelessWidget {
+class PostsTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

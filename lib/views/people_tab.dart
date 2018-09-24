@@ -5,7 +5,7 @@ import 'package:fursa_flutter/models/user.dart';
 import 'package:fursa_flutter/values/strings.dart';
 import 'package:fursa_flutter/views/people_list_item.dart';
 
-class PeopleTab extends StatelessWidget {
+class PeopleTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,10 +21,7 @@ class PeopleTab extends StatelessWidget {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     var snapshotDocuments = snapshot.data.documents;
-
-//
                     User user = User.fromSnapshot(snapshotDocuments[index]);
-
                     return new PeopleListItemView(user);
                   });
             }));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fursa_flutter/functions/account_functions.dart';
 import 'package:fursa_flutter/models/user.dart';
 import 'package:fursa_flutter/pages/user_profile.dart';
 import 'package:fursa_flutter/values/strings.dart';
@@ -42,29 +43,18 @@ class _PeopleListItemViewState extends State<PeopleListItemView> {
         ));
     return Card(
       child: InkWell(
-        child: Row(
-          children: <Widget>[
-            _imageSection,
-            Expanded(child: _infoSection),
-            _followSection
-          ],
-        ),
-        onTap: () => _openUserProfile(context),
-      ),
+          child: Row(
+            children: <Widget>[
+              _imageSection,
+              Expanded(child: _infoSection),
+              _followSection
+            ],
+          ),
+          onTap: () => new AccountFunctions().openUserProfile(context, user)),
     );
   }
 
   void _followUser() {
     //todo handle follow user
-  }
-
-  _openUserProfile(BuildContext context) {
-    Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) {
-              return new UserProfilePage(user);
-            },
-            fullscreenDialog: true));
   }
 }

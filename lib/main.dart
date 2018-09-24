@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import './pages/home.dart';
-
+import './pages/init.dart';
 
 void main() {
   runApp(new MaterialApp(
-    home: new HomePage(),
+    home: new Init(),
   ));
 }

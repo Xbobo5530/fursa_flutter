@@ -1,54 +1,36 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:fursa_flutter/functions/account_functions.dart';
-import 'package:fursa_flutter/pages/people_tab.dart';
-import 'package:fursa_flutter/pages/posts_tab.dart';
+import 'package:fursa_flutter/functions/post_functions.dart';
+import 'package:fursa_flutter/views/people_tab.dart';
+import 'package:fursa_flutter/views/posts_tab.dart';
 import 'package:fursa_flutter/values/strings.dart';
-import 'package:fursa_flutter/views/bottom_nav_bar.dart';
 import 'package:fursa_flutter/views/main_drawer.dart';
 
-const tag = 'HomePage: ';
-
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final account = new AccountFunctions();
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text(APP_NAME),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+            title: Text(APP_NAME),
             bottom: TabBar(
               tabs: [
                 Tab(icon: Icon(Icons.timelapse), text: recentText),
                 Tab(icon: Icon(Icons.group), text: peopleText),
               ],
-            ),
-          ),
-          bottomNavigationBar: new BottomNavView(),
-          drawer: new MainDrawerView(account.isLoggedIn()),
-          floatingActionButton: new FloatingActionButton(
-              backgroundColor: Colors.red,
-              child: new Icon(Icons.add),
-              onPressed: _createPost),
-          body: TabBarView(
-            children: [
-              new PostsTab(),
-              new PeopleTab(),
-            ],
-          ),
+            )),
+        drawer: new MainDrawerView(),
+        body: TabBarView(
+          children: [
+            new PostsTabView(),
+            new PeopleTabView(),
+          ],
         ),
+        floatingActionButton: new FloatingActionButton(
+            backgroundColor: Colors.red,
+            child: new Icon(Icons.add),
+            onPressed: () => new PostFunctions().createPost(context)),
       ),
     );
   }
-
-  void _createPost() {}
 }

@@ -1,4 +1,6 @@
 const APP_NAME = 'Fursa';
+const playStoreUrl =
+    'https://play.google.com/store/apps/details?id=com.nyayozangu.labs.fursa';
 const POSTS_COLLECTION = 'Posts';
 const USERS_COLLECTION = 'Users';
 const TIMESTAMP_VALUE = 'timestamp';
@@ -27,8 +29,22 @@ const contactUsText = 'Contact us';
 const aboutText = 'About';
 const viewTermsText = 'View terms';
 
+const homeText = 'Home';
+const categoriesText = 'Categories';
+const notificationsText = 'Notifications';
+
+const trendingTagsText = 'Trending tags';
+const tagsText = 'Tags';
+const tagText = 'Tag';
+
 const twitterSignInText = 'Sign in with Twitter';
 const googleSignInText = 'Sign in with Google';
+
+const rateAppText = 'Rate Fursa';
+
+const loginToPostText = 'Login to create a post';
+const loginToCommentText = 'Login to comment on post';
+const loginToSaveText = 'Login to save posts';
 
 const postDesc1 = 'The tenor ukulele is larger than the concert ukulele.'
     ' It is defined by having a very rich tone.'

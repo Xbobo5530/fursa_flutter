@@ -65,27 +65,54 @@ class _UserProfilePageState extends State<UserProfilePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          RaisedButton(
-            child: Text(postsText),
+          FlatButton(
+            child: Column(
+              children: <Widget>[
+                Text(postsText),
+                Text(
+                  '32 Posts',
+                  style: new TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12.0,
+                  ),
+                )
+              ],
+            ),
             onPressed: _openPosts,
-            color: Colors.grey.withAlpha(1),
           ),
 
-          RaisedButton(
-            child: Text(followersText),
+          FlatButton(
+            child: Column(
+              children: <Widget>[
+                Text(followersText),
+                Text(
+                  '542 followers',
+                  style: new TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12.0,
+                  ),
+                )
+              ],
+            ),
             onPressed: _openFollowers,
-            color: Colors.grey.withAlpha(1),
           ),
 
-          RaisedButton(
-            child: Text(followingText),
+          FlatButton(
+            child: Column(
+              children: <Widget>[
+                Text(followingText),
+                Text(
+                  'following 423',
+                  style: new TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12.0,
+                  ),
+                )
+              ],
+            ),
             onPressed: _openFollowing,
-            color: Colors.grey.withAlpha(1),
           ),
 
-//        _buildButton(postsText, _openPosts()),
-//        _buildButton(followersText, _openFollowers()),
-//        _buildButton(followingText, _openFollowing()),
         ],
       ),
     );

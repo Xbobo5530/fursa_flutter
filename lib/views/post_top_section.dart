@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fursa_flutter/functions/account_functions.dart';
 import 'package:fursa_flutter/models/post.dart';
 import 'package:fursa_flutter/values/strings.dart';
 
@@ -15,11 +16,15 @@ class _PostTopSectionViewState extends State<PostTopSectionView> {
   @override
   Widget build(BuildContext context) {
     var _imageSection = post.userImageUrl != null
-        ? Padding(
-            padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(post.userImageUrl),
+        ? InkWell(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(post.userImageUrl),
+              ),
             ),
+            onTap: () => new AccountFunctions()
+                .openUserProfileWithId(context, post.userId),
           )
         : Padding(
             padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
@@ -32,12 +37,14 @@ class _PostTopSectionViewState extends State<PostTopSectionView> {
 
     var locationString = '';
     var postLocation = post.location;
+
     if (postLocation != null)
-      postLocation.forEach((item) => locationString += '\n' + item);
+      postLocation.forEach((item) => locationString += '$item\n');
     var _middleSection = new ListTile(
       title: post.username != null ? Text(post.username) : new Container(),
-      subtitle:
-          post.location != null ? Text(locationString.trim()) : new Container(),
+      subtitle: post.location != null && locationString.trim().isNotEmpty
+          ? Text(locationString.trim())
+          : new Container(),
     );
 
     var _followSection = FlatButton(
