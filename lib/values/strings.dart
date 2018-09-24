@@ -17,6 +17,18 @@ const followText = 'Follow';
 const followersText = 'Followers';
 const followingText = 'Following';
 const postsText = 'Posts';
+const loginText = 'Login';
+const logoutText = 'Logout';
+const myProfileText = 'My profile';
+const myPostsText = 'My posts';
+const mySavedPostsText = 'My saved posts';
+const mySubsText = 'My subscriptions';
+const contactUsText = 'Contact us';
+const aboutText = 'About';
+const viewTermsText = 'View terms';
+
+const twitterSignInText = 'Sign in with Twitter';
+const googleSignInText = 'Sign in with Google';
 
 const postDesc1 = 'The tenor ukulele is larger than the concert ukulele.'
     ' It is defined by having a very rich tone.'

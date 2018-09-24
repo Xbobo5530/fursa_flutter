@@ -21,16 +21,11 @@ class PeopleTab extends StatelessWidget {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     var snapshotDocuments = snapshot.data.documents;
-                    List<User> usersList = new List<User>();
 
-                    for (DocumentSnapshot document in snapshotDocuments) {
-                      User user = User.fromSnapshot(document);
-                      var userId = document.documentID;
+//
+                    User user = User.fromSnapshot(snapshotDocuments[index]);
 
-                      user.uid = userId;
-                      usersList.add(user);
-                    }
-                    return new PeopleListItemView(usersList[index]);
+                    return new PeopleListItemView(user);
                   });
             }));
   }

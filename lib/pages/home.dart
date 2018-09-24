@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:fursa_flutter/functions/account_functions.dart';
 import 'package:fursa_flutter/pages/people_tab.dart';
 import 'package:fursa_flutter/pages/posts_tab.dart';
 import 'package:fursa_flutter/values/strings.dart';
 import 'package:fursa_flutter/views/bottom_nav_bar.dart';
 import 'package:fursa_flutter/views/main_drawer.dart';
+
+const tag = 'HomePage: ';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,9 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String url = 'https://firebasestorage.googleapis.com'
-      '/v0/b/fursa-c181d.appspot.com/o/ic_launcher-web.png'
-      '?alt=media&token=4ebbe991-147c-4b87-8985-462fd2052b0a';
+  final account = new AccountFunctions();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           bottomNavigationBar: new BottomNavView(),
-          drawer: new MainDrawerView(),
+          drawer: new MainDrawerView(account.isLoggedIn()),
           floatingActionButton: new FloatingActionButton(
               backgroundColor: Colors.red,
               child: new Icon(Icons.add),

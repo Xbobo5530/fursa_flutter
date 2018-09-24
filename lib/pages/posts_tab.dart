@@ -23,27 +23,25 @@ class PostsTab extends StatelessWidget {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     var snapshotDocuments = snapshot.data.documents;
-                    List<Post> postsList = new List<Post>();
-                    for (DocumentSnapshot document in snapshotDocuments) {
-                      Post post = Post.fromSnapshot(document);
-                      var postId = document.documentID;
-                      var userId = post.userId;
-                      Firestore.instance
-                          .collection(USERS_COLLECTION)
-                          .document(userId)
-                          .get()
-                          .then((DocumentSnapshot documentSnapshot) {
-                        //convert the document snapshot into a user
-                        User user = User.fromSnapshot(documentSnapshot);
-                        var username = user.name;
-                        var userImageUrl = user.imageUrl;
-                        post.username = username;
-                        post.userImageUrl = userImageUrl;
-                      });
-                      post.postId = postId;
-                      postsList.add(post);
-                    }
-                    return new PostListItemView(postsList[index]);
+//
+                    Post post = Post.fromSnapshot(snapshotDocuments[index]);
+                    var userId = post.userId;
+
+                    Firestore.instance
+                        .collection(USERS_COLLECTION)
+                        .document(userId)
+                        .get()
+                        .then((DocumentSnapshot documentSnapshot) {
+                      //convert the document snapshot into a user
+                      User user = User.fromSnapshot(documentSnapshot);
+                      var username = user.name;
+                      var userImageUrl = user.imageUrl;
+                      post.username = username;
+                      post.userImageUrl = userImageUrl;
+                    });
+
+//                    return new PostListItemView(postsList[index]);
+                    return new PostListItemView(post);
                   });
             }));
   }
