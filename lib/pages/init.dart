@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fursa_flutter/functions/account_functions.dart';
+import 'package:fursa_flutter/functions/functions.dart';
 import 'package:fursa_flutter/pages/categories.dart';
 import 'package:fursa_flutter/pages/home.dart';
 import 'package:fursa_flutter/pages/notifications.dart';
@@ -18,7 +18,7 @@ class Init extends StatefulWidget {
 }
 
 class _InitState extends State<Init> {
-  final account = new AccountFunctions();
+  final account = new Functions();
 
   @override
   Widget build(BuildContext context) {

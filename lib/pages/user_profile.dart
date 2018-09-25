@@ -80,7 +80,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
             ),
             onPressed: _openPosts,
           ),
-
           FlatButton(
             child: Column(
               children: <Widget>[
@@ -96,7 +95,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
             ),
             onPressed: _openFollowers,
           ),
-
           FlatButton(
             child: Column(
               children: <Widget>[
@@ -112,7 +110,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
             ),
             onPressed: _openFollowing,
           ),
-
         ],
       ),
     );
@@ -186,15 +183,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
   _openPosts() {}
 
   _openFollowers() {}
-
-  _buildButton(String text, action()) {
-    RaisedButton(
-      child: Text(text),
-      onPressed: () {
-        action();
-      },
-    );
-  }
 
   _openFollowing() {}
 }

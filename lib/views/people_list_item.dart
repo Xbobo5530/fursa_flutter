@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fursa_flutter/functions/account_functions.dart';
+import 'package:fursa_flutter/functions/functions.dart';
 import 'package:fursa_flutter/models/user.dart';
 import 'package:fursa_flutter/pages/user_profile.dart';
 import 'package:fursa_flutter/values/strings.dart';
@@ -50,7 +50,7 @@ class _PeopleListItemViewState extends State<PeopleListItemView> {
               _followSection
             ],
           ),
-          onTap: () => new AccountFunctions().openUserProfile(context, user)),
+          onTap: () => new Functions().openUserProfile(context, user)),
     );
   }
 

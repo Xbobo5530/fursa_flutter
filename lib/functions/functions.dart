@@ -4,20 +4,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fursa_flutter/models/user.dart';
+import 'package:fursa_flutter/pages/create_post.dart';
+import 'package:fursa_flutter/pages/login.dart';
 import 'package:fursa_flutter/pages/user_profile.dart';
 import 'package:fursa_flutter/values/strings.dart';
 
 const tag = 'AccountFunctions: ';
 
-class AccountFunctions {
+class Functions {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  bool isLoggedIn() {
-    var user = getUser().whenComplete(() {
-      print('$tag this is $this');
-      return this;
+  Future<bool> isLoggedIn() async {
+    FirebaseUser user = await auth.currentUser().then((user) {
+      return user;
     });
-    print('$tag user is $user');
     return user != null ? true : false;
   }
 
@@ -27,7 +27,9 @@ class AccountFunctions {
   }
 
   Future<FirebaseUser> getUser() async {
-    return await this.auth.currentUser();
+    return await this.auth.currentUser().then((user) {
+      return user;
+    });
   }
 
   openUserProfileWithId(BuildContext context, String userId) async {
@@ -52,4 +54,20 @@ class AccountFunctions {
             builder: (context) => new UserProfilePage(user),
             fullscreenDialog: true));
   }
+
+  createPost(BuildContext context) {
+    getUser().then((user) {
+      user != null
+          ? Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: ((context) => new CreatePostPage())))
+          : Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (context) => new LoginPage(loginToPostText)));
+    });
+  }
+
+  var database = Firestore.instance;
 }

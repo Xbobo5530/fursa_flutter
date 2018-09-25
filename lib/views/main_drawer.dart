@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fursa_flutter/functions/account_functions.dart';
+import 'package:fursa_flutter/functions/functions.dart';
+import 'package:fursa_flutter/models/user.dart';
 import 'package:fursa_flutter/pages/categories.dart';
 import 'package:fursa_flutter/pages/home.dart';
 import 'package:fursa_flutter/pages/login.dart';
@@ -9,37 +12,79 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:launch_review/launch_review.dart';
 
-class MainDrawerView extends StatelessWidget {
-//  final bool _isLoggedIn;
-//  MainDrawerView(this._isLoggedIn);
-  final account = new AccountFunctions();
+class MainDrawerView extends StatefulWidget {
+  @override
+  _MainDrawerViewState createState() => _MainDrawerViewState();
+}
+
+class _MainDrawerViewState extends State<MainDrawerView> {
+  final functions = new Functions();
+
+  var _isLoggedIn = false;
+  User _user;
 
   @override
   Widget build(BuildContext context) {
-    var loggedInActions = Column(
-      children: <Widget>[
-        ListTile(
-          leading: Icon(Icons.account_circle),
-          title: new Text(myProfileText),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Icon(Icons.library_books),
-          title: new Text(myPostsText),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Icon(Icons.bookmark),
-          title: new Text(mySavedPostsText),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Icon(Icons.sync),
-          title: new Text(mySubsText),
-          onTap: () {},
-        ),
-      ],
-    );
+    functions.getUser().then((user) {
+      user != null
+          ? setState(() {
+              _isLoggedIn = true;
+              _getUserDetails(user);
+            })
+          : _isLoggedIn = false;
+    });
+
+    var headerSection = new UserAccountsDrawerHeader(
+        accountName: ListTile(
+            leading: _user != null && _user.imageUrl != null
+                ? new CircleAvatar(
+                    backgroundImage: NetworkImage(_user.imageUrl),
+                  )
+                : Icon(
+                    Icons.account_circle,
+                    color: Colors.grey,
+                    size: 45.0,
+                  ),
+            title: _user != null && _user.name != null
+                ? Text(
+                    _user.name,
+                    style: new TextStyle(
+                      color: Colors.white,
+                    ),
+                  )
+                : Text(APP_NAME)),
+        accountEmail: _isLoggedIn
+            ? _user != null && _user.credit != null && _user.credit != 0
+                ? Text('Balance: ${_user.credit}(s)')
+                : new Container()
+            : new Container());
+
+    var loggedInActions = _isLoggedIn
+        ? Column(
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.account_circle),
+                title: new Text(myProfileText),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(Icons.library_books),
+                title: new Text(myPostsText),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(Icons.bookmark),
+                title: new Text(mySavedPostsText),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(Icons.sync),
+                title: new Text(mySubsText),
+                onTap: () {},
+              ),
+            ],
+          )
+        : new Container();
 
     var navSection = Column(
       children: <Widget>[
@@ -88,8 +133,7 @@ class MainDrawerView extends StatelessWidget {
     return Drawer(
       child: Column(
         children: <Widget>[
-          new UserAccountsDrawerHeader(
-              accountName: Text(APP_NAME), accountEmail: Text('email text')),
+          headerSection,
           Expanded(
             child: ListView(
               children: <Widget>[
@@ -109,13 +153,14 @@ class MainDrawerView extends StatelessWidget {
   }
 
   ListTile _buildLoginListTile(BuildContext context) {
-    var _isLoggedIn = account.isLoggedIn();
-
     return _isLoggedIn
         ? new ListTile(
             leading: new Icon(Icons.exit_to_app),
             title: Text(logoutText),
-            onTap: () => account.logout(),
+            onTap: () {
+              Navigator.pop(context);
+              functions.logout();
+            },
           )
         : new ListTile(
             leading: new Icon(Icons.account_circle),
@@ -173,4 +218,21 @@ class MainDrawerView extends StatelessWidget {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => new NotificationsPage()));
   }
+
+  void _getUserDetails(FirebaseUser user) {
+    var userId = user.uid;
+    functions.database
+        .collection(USERS_COLLECTION)
+        .document(userId)
+        .get()
+        .then((document) {
+      _user = User.fromSnapshot(document);
+    });
+  }
 }
+
+//class MainDrawerView extends StatelessWidget {
+////  final bool _isLoggedIn;
+////  MainDrawerView(this._isLoggedIn);
+//
+//}

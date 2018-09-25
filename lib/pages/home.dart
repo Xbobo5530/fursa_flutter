@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fursa_flutter/functions/post_functions.dart';
+import 'package:fursa_flutter/functions/functions.dart';
 import 'package:fursa_flutter/views/people_tab.dart';
 import 'package:fursa_flutter/views/posts_tab.dart';
 import 'package:fursa_flutter/values/strings.dart';
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
         floatingActionButton: new FloatingActionButton(
             backgroundColor: Colors.red,
             child: new Icon(Icons.add),
-            onPressed: () => new PostFunctions().createPost(context)),
+            onPressed: () => new Functions().createPost(context)),
       ),
     );
   }

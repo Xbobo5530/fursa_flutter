@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fursa_flutter/functions/account_functions.dart';
-import 'package:fursa_flutter/functions/post_functions.dart';
+import 'package:fursa_flutter/functions/functions.dart';
 import 'package:fursa_flutter/models/post.dart';
 import 'package:fursa_flutter/values/strings.dart';
 
@@ -55,9 +54,8 @@ class ViewPostPage extends StatelessWidget {
 
     var categoriesInfoList = post.categories;
     String categoriesString = '';
-    if (categoriesInfoList != null) {
+    if (categoriesInfoList != null)
       categoriesInfoList.forEach((item) => categoriesString += '$item\n');
-    }
 
     var categoriesSection =
         categoriesInfoList != null && categoriesString.trim().isNotEmpty
@@ -91,8 +89,7 @@ class ViewPostPage extends StatelessWidget {
               color: Colors.grey,
             ),
       title: Text(post.username),
-      onTap: () =>
-          new AccountFunctions().openUserProfileWithId(context, post.userId),
+      onTap: () => new Functions().openUserProfileWithId(context, post.userId),
     );
 
     return Scaffold(
