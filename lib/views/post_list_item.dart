@@ -20,15 +20,22 @@ class _PostListItemViewState extends State<PostListItemView> {
 
   @override
   Widget build(BuildContext context) {
-    var _descSection = Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Text(
-        post.desc,
-        maxLines: 3,
-      ),
-    );
+    print('$tag $post');
+    var _descSection = post.desc != null
+        ? Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: post.title != null && post.desc != null
+                ? Text(
+                    '${post.title}\n${post.desc}',
+                    maxLines: 3,
+                  )
+                : post.title != null
+                    ? Text('${post.title}')
+                    : post.desc != null ? Text('${post.desc}') : Container(),
+          )
+        : Container();
 
-    var _topSection = new PostTopSectionView(post);
+    var _topSection = PostTopSectionView(post);
 
     var _imageSection =
         post.imageUrl != null ? Image.network(post.imageUrl) : new Container();

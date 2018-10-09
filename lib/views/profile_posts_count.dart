@@ -32,7 +32,6 @@ class _PostsCountViewState extends State<PostsCountView> {
         .then((snapshot) {
       setState(() {
         _postsCount = snapshot.documents.length;
-        print('$tag posts count is $_postsCount');
       });
     });
 
