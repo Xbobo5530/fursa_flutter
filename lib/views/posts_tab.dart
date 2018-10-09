@@ -18,12 +18,11 @@ class PostsTabView extends StatelessWidget {
                 .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData)
-                return Center(child: new CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator());
               return ListView.builder(
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     var snapshotDocuments = snapshot.data.documents;
-//
                     Post post = Post.fromSnapshot(snapshotDocuments[index]);
                     var userId = post.userId;
 
@@ -32,7 +31,6 @@ class PostsTabView extends StatelessWidget {
                         .document(userId)
                         .get()
                         .then((DocumentSnapshot documentSnapshot) {
-                      //convert the document snapshot into a user
                       User user = User.fromSnapshot(documentSnapshot);
                       var username = user.name;
                       var userImageUrl = user.imageUrl;
@@ -41,7 +39,7 @@ class PostsTabView extends StatelessWidget {
                     });
 
 //                    return new PostListItemView(postsList[index]);
-                    return new PostListItemView(post);
+                    return PostListItemView(post: post);
                   });
             }));
   }

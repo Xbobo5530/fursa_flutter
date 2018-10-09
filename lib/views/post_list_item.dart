@@ -8,7 +8,7 @@ const tag = 'PostListItemView';
 
 class PostListItemView extends StatefulWidget {
   final Post post;
-  PostListItemView(this.post);
+  PostListItemView({this.post});
 
   @override
   _PostListItemViewState createState() => _PostListItemViewState(post);

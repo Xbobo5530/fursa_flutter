@@ -42,7 +42,7 @@ class _MainDrawerViewState extends State<MainDrawerView> {
                   )
                 : Icon(
                     Icons.account_circle,
-                    color: Colors.grey,
+                    color: Colors.white,
                     size: 45.0,
                   ),
             title: _user != null && _user.name != null

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fursa_flutter/models/user.dart';
 import 'package:fursa_flutter/pages/edit_user_profile.dart';
 import 'package:fursa_flutter/values/strings.dart';
+import 'package:fursa_flutter/views/profile_follow_count.dart';
+import 'package:fursa_flutter/views/profile_posts_count.dart';
 
 class UserProfilePage extends StatefulWidget {
   final User user;
@@ -50,7 +52,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: new RaisedButton(
+            child: RaisedButton(
                 color: Colors.blue,
                 textColor: Colors.white,
                 child: Text(followText),
@@ -63,52 +65,16 @@ class _UserProfilePageState extends State<UserProfilePage> {
     var bottomSection = Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          FlatButton(
-            child: Column(
-              children: <Widget>[
-                Text(postsText),
-                Text(
-                  '32 Posts',
-                  style: new TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12.0,
-                  ),
-                )
-              ],
-            ),
-            onPressed: _openPosts,
+          PostsCountView(user: user),
+          FollowCountView(
+            user: user,
+            follow: followersText,
           ),
-          FlatButton(
-            child: Column(
-              children: <Widget>[
-                Text(followersText),
-                Text(
-                  '542 followers',
-                  style: new TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12.0,
-                  ),
-                )
-              ],
-            ),
-            onPressed: _openFollowers,
-          ),
-          FlatButton(
-            child: Column(
-              children: <Widget>[
-                Text(followingText),
-                Text(
-                  'following 423',
-                  style: new TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12.0,
-                  ),
-                )
-              ],
-            ),
-            onPressed: _openFollowing,
+          FollowCountView(
+            user: user,
+            follow: followingText,
           ),
         ],
       ),

@@ -4,15 +4,15 @@ import 'package:fursa_flutter/models/user.dart';
 import 'package:fursa_flutter/pages/user_profile.dart';
 import 'package:fursa_flutter/values/strings.dart';
 
-class PeopleListItemView extends StatefulWidget {
+class UserListItemView extends StatefulWidget {
   final User user;
-  PeopleListItemView(this.user);
+  UserListItemView({this.user});
 
   @override
   _PeopleListItemViewState createState() => _PeopleListItemViewState(user);
 }
 
-class _PeopleListItemViewState extends State<PeopleListItemView> {
+class _PeopleListItemViewState extends State<UserListItemView> {
   _PeopleListItemViewState(this.user);
   final User user;
 

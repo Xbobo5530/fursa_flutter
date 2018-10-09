@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fursa_flutter/mock_data/users.dart';
 import 'package:fursa_flutter/models/user.dart';
 import 'package:fursa_flutter/values/strings.dart';
-import 'package:fursa_flutter/views/people_list_item.dart';
+import 'package:fursa_flutter/views/user_list_item.dart';
 
 class PeopleTabView extends StatelessWidget {
   @override
@@ -20,9 +20,11 @@ class PeopleTabView extends StatelessWidget {
               return ListView.builder(
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
-                    var snapshotDocuments = snapshot.data.documents;
-                    User user = User.fromSnapshot(snapshotDocuments[index]);
-                    return new PeopleListItemView(user);
+                    DocumentSnapshot document = snapshot.data.documents[index];
+                    User user = User.fromSnapshot(document);
+                    var userId = document.documentID;
+                    user.uid = userId;
+                    return new UserListItemView(user: user);
                   });
             }));
   }
