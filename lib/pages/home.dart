@@ -26,10 +26,10 @@ class HomePage extends StatelessWidget {
             new PeopleTabView(),
           ],
         ),
-        floatingActionButton: new FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.red,
             child: new Icon(Icons.add),
-            onPressed: () => new Functions().createPost(context)),
+            onPressed: () => Functions().createPost(context)),
       ),
     );
   }

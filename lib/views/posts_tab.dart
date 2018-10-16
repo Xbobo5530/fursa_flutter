@@ -7,15 +7,28 @@ import 'package:fursa_flutter/views/post_list_item.dart';
 
 const tag = 'PostsTab: ';
 
-class PostsTabView extends StatelessWidget {
+class PostsTabView extends StatefulWidget {
+  @override
+  _PostsTabViewState createState() => _PostsTabViewState();
+}
+
+class _PostsTabViewState extends State<PostsTabView> {
+  var _posts;
+
+  @override
+  void initState() {
+    _posts = Firestore.instance
+        .collection(POSTS_COLLECTION)
+        .orderBy(TIMESTAMP_VALUE, descending: true)
+        .snapshots();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         child: StreamBuilder(
-            stream: Firestore.instance
-                .collection(POSTS_COLLECTION)
-                .orderBy(TIMESTAMP_VALUE, descending: true)
-                .snapshots(),
+            stream: _posts,
             builder: (context, snapshot) {
               if (!snapshot.hasData)
                 return Center(child: CircularProgressIndicator());
