@@ -20,7 +20,7 @@ class _PostListItemViewState extends State<PostListItemView> {
 
   @override
   Widget build(BuildContext context) {
-    print('$tag $post');
+//    print('$tag $post');
     var _descSection = post.desc != null
         ? Padding(
             padding: const EdgeInsets.all(16.0),

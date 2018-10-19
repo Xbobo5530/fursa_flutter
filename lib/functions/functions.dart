@@ -14,6 +14,7 @@ const tag = 'AccountFunctions: ';
 class Functions {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  final database = Firestore.instance;
   Future<bool> isLoggedIn() async {
     FirebaseUser user = await auth.currentUser().then((user) {
       return user;
@@ -50,7 +51,7 @@ class Functions {
   openUserProfile(BuildContext context, User user) {
     Navigator.push(
         context,
-        new MaterialPageRoute(
+        MaterialPageRoute(
             builder: (context) => new UserProfilePage(user),
             fullscreenDialog: true));
   }
@@ -68,6 +69,4 @@ class Functions {
                   builder: (context) => new LoginPage(loginToPostText)));
     });
   }
-
-  var database = Firestore.instance;
 }

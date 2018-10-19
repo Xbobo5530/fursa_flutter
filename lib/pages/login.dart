@@ -1,10 +1,15 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fursa_flutter/functions/functions.dart';
 import 'package:fursa_flutter/values/strings.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+
+const tag = 'LoginPage:';
+final functions = Functions();
 
 class LoginPage extends StatelessWidget {
   final _loginMessage;
@@ -48,11 +53,14 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _signInWithGoogle(BuildContext context) {
-    var user = _handleGoogleSignIn()
-        .then((FirebaseUser user) => print(user))
-        .catchError((e) => print(e));
-    user != null ? Navigator.pop(context) : new CircularProgressIndicator();
+  _signInWithGoogle(BuildContext context) async {
+    var user =
+        await _handleGoogleSignIn().catchError((error) => print('$tag $error'));
+    if (user != null) {
+      //check if is new user
+      var userId = user.uid;
+      _checkIfUserExists(context, user);
+    }
   }
 
   GoogleSignIn _googleSignInScopes = new GoogleSignIn(
@@ -61,14 +69,6 @@ class LoginPage extends StatelessWidget {
       'https://www.googleapis.com/auth/contacts.readonly',
     ],
   );
-
-//  _signInWithGoogle() async {
-//    try {
-//      await _googleSignInScopes.signIn();
-//    } catch (error) {
-//      print(error);
-//    }
-//  }
 
   Future<FirebaseUser> _handleGoogleSignIn() async {
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -82,4 +82,31 @@ class LoginPage extends StatelessWidget {
   }
 
   _signInWithTwitter() {}
+
+  _checkIfUserExists(BuildContext context, FirebaseUser user) async {
+    final userId = user.uid;
+    DocumentSnapshot document = await functions.database
+        .collection(USERS_COLLECTION)
+        .document(userId)
+        .get();
+    document.exists ? Navigator.pop(context) : _registerUser(context, user);
+  }
+
+  _registerUser(BuildContext context, FirebaseUser user) async {
+    /// create a map for the user
+    /// add the map to the database
+    /// pop context
+
+    final userMap = {
+      'name': user.displayName,
+      'image': user.photoUrl,
+    };
+
+    await functions.database
+        .collection(USERS_COLLECTION)
+        .add(userMap)
+        .catchError((error) => print('$tag Error adding new user: $error'));
+
+    Navigator.pop(context);
+  }
 }

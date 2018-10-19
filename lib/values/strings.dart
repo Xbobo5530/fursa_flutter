@@ -1,12 +1,15 @@
 const APP_NAME = 'Fursa';
 const playStoreUrl =
     'https://play.google.com/store/apps/details?id=com.nyayozangu.labs.fursa';
+
 const POSTS_COLLECTION = 'Posts';
 const USERS_COLLECTION = 'Users';
+const CATEGORIES_COLLECTION = 'Categories';
 const MY_POSTS_DOCUMENT = 'my_posts';
 const MY_POSTS_COLLECTION = 'MyPosts';
 const SUBSCRIPTIONS_COLLECTION = 'Subscriptions';
 const TIMESTAMP_VALUE = 'timestamp';
+
 const recentText = 'Recent';
 const peopleText = 'People';
 const likeText = 'Like';
@@ -17,6 +20,7 @@ const editProfileText = 'Edit profile';
 const confirmEditProfileText = 'Would you like to edit your profile?';
 const yesText = 'Yes';
 const cancelText = 'Cancel';
+const doneText = 'Done';
 const promoteText = 'Promote';
 const followText = 'Follow';
 const followersText = 'Followers';
@@ -39,6 +43,13 @@ const notificationsText = 'Notifications';
 const trendingTagsText = 'Trending tags';
 const tagsText = 'Tags';
 const tagText = 'Tag';
+
+/// create post page
+const newPostText = 'New Post';
+const submitText = 'Submit';
+const descText = 'Descrption';
+const enterDescHint = 'Enter a description';
+const enterCatsHint = 'Select a category';
 
 const twitterSignInText = 'Sign in with Twitter';
 const googleSignInText = 'Sign in with Google';
